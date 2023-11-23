@@ -1,5 +1,7 @@
 #include "Component.h"
 
+#include <iostream>
+
 namespace sfutils
 {
     namespace es
@@ -198,6 +200,7 @@ namespace sfutils
         {
             checkComponent<COMPONENT>();
             Family family = COMPONENT::family();
+            //std::cout << "addComponent family = " << family << "\n";
 
             assert(not _entitiesComponentsMask.at(id).test(family));
 
@@ -302,6 +305,7 @@ namespace sfutils
         inline void EntityManager<ENTITY>::checkComponent()
         {
             Family family = COMPONENT::family();
+            //std::cout << "checkComponent family = " << family << "\n";
             //resize
             if (_componentsEntities.size() <= family)
                 _componentsEntities.resize(family + 1, nullptr);

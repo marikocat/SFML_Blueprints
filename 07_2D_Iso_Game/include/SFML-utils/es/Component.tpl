@@ -1,6 +1,7 @@
 #include "EntityManager.h"
 
 #include <cassert>
+#include <iostream>
 
 namespace sfutils
 {
@@ -93,6 +94,7 @@ namespace sfutils
 		Family Component<COMPONENT, ENTITY>::family()
 		{
 			static Family family = VComponent<ENTITY>::_familyCounter++;
+			//std::cout << "Component::family() = " << family << "\n";
 			assert(family < MAX_COMPONENTS);
 			return family;
 		}

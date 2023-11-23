@@ -5,6 +5,8 @@
 #include "SFML-Book/Level.h"
 #include "SFML-Book/Helpers.h"
 
+#include <iostream>
+
 namespace book
 {
     ///////////////////// SYS AI MAIN ///////////////////////
@@ -49,9 +51,9 @@ namespace book
         CompAIWarrior::Handle AI;
         CompTeam::Handle team;
         CompSkin::Handle skin;
+
         auto view = manager.getByComponents(AI, team, skin);
         auto end = view.end();
-
         for (auto begin = view.begin(); begin != end; ++begin)
         {
             AI->_elapsed += dt;
@@ -72,7 +74,6 @@ namespace book
                 continue;
 
             id = ids[0];
-
 
             const sf::Vector2i myPosition = _level.mapPixelToCoords(skin->_sprite.getPosition());
             const int range = AI->_range;
@@ -124,7 +125,6 @@ namespace book
                     enemy.onHitted(enemy, coord, me, myPosition, _level);
                 if (me.onHit != nullptr)
                     me.onHit(me, myPosition, enemy, coord, _level);
-
 
                 //win some gold
                 if (hp->_hp <= 0)
@@ -306,16 +306,18 @@ namespace book
     {
         CompAIWalker::Handle AI;
         CompSkin::Handle skin;
-        auto view = manager.getByComponents(AI, skin);
-        auto end = view.end();
 
         const float seconds = dt.asSeconds();
+
+        auto view = manager.getByComponents(AI, skin);
+        auto end = view.end();
         for (auto begin = view.begin(); begin != end; ++begin)
         {
             sf::Vector2f PosCurrent = skin->_sprite.getPosition();
             sf::Vector2i CoordCurrent = _level.mapPixelToCoords(PosCurrent);
 
             sf::Vector2i CoordDest = AI->_pathToTake;
+            //std::cout << "path to take: " << AI->_pathToTake.x << ", " << AI->_pathToTake.y << "\n";
             if (CoordDest != CoordCurrent) //need to move
             {
                 sf::Vector2f PosDest = _level.mapCoordsToPixel(CoordDest);
@@ -328,9 +330,9 @@ namespace book
 
                 if (distance > frameDistance)
                 {
-                    sf::Vector2f nextPos = PosCurrent + directon * (frameDistance / distance);
-                    skin->_sprite.setPosition(nextPos);
-                    _level.setPosition(**begin, CoordCurrent, _level.mapPixelToCoords(nextPos));
+                    sf::Vector2f PosNext = PosCurrent + directon * (frameDistance / distance);
+                    skin->_sprite.setPosition(PosNext);
+                    _level.setPosition(**begin, CoordCurrent, _level.mapPixelToCoords(PosNext));
                 }
                 else
                 {

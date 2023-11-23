@@ -106,7 +106,9 @@ namespace book
 					{
 						sf::Vector2i mouse = sf::Vector2i(event.mouseMove.x, event.mouseMove.y);
 						sf::Vector2i coord = _level->mapScreenToCoords(mouse);
+						std::cout << "coord: " << coord.x << " " << coord.y << "\n";
 						sf::Vector2i pos = _level->mapCoordsToScreen(coord);
+						std::cout << "pos: " << pos.x << " " << pos.y << "\n";
 						_spriteBuild.setPosition(pos.x, pos.y);
 					}
 					else if (event.type == sf::Event::MouseButtonPressed)

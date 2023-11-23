@@ -1,6 +1,9 @@
 #include "SFML-Book/Configuration.h"
 #include "SFML-Book/Game.h"
 
+//#include <SFML-utils/map/VMap.h>
+//#include <SFML-utils/map/MapViewer.h>
+
 #include <iostream>
 
 using namespace sfutils;

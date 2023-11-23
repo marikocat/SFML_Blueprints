@@ -116,6 +116,7 @@ namespace sfutils
 
 					_renderTexture.display();
 					_lastViewport = viewport;
+					std::cout << "viewport.left = " << viewport.left << " top = " << viewport.top << " width = " << viewport.width << " height = " << viewport.height << "\n";
 					_sprite.setPosition(viewport.left, viewport.top);
 				}
 				target.draw(_sprite, states);

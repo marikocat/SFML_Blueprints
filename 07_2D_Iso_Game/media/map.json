@@ -9,7 +9,7 @@
     [
         {
             "content" : "tile",
-            "z" : 1,
+            "z" : 0,
             "static" : true,
             "datas" : 
             [

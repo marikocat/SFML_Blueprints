@@ -200,7 +200,7 @@ namespace book
 		std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(sound_id)));
 		sound->setPosition(pos.x, pos.y, 0);
 		sound->setRelativeToListener(true);
-		sound->setVolume(100);
+		sound->setVolume(50);
 		sound->setAttenuation(1);
 
 		sound->play();
