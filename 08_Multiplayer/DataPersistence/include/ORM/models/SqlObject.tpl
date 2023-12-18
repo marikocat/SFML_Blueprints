@@ -156,6 +156,7 @@ namespace orm
     template<typename T>
     bool SqlObject<T>::createTable(DB& db)
     {
+    std::cout << "createTable() function called\n";
         #if ORM_DEBUG & ORM_DEBUG_CREATE_TABLE
         std::cerr<<ORM_COLOUR_MAGENTA<<"[CREATE] create table "<<_table<<ORM_COLOUR_NONE<<std::endl;
         #endif

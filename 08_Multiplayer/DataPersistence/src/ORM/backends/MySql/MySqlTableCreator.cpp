@@ -128,7 +128,7 @@ namespace orm
         {
             res+= " NOT NULL";
         }
-        res+= " REFERENCES " + mysql_escape(table) + "(`pk`)";
+        res+= ",FOREIGN KEY (" + mysql_escape(colunm_name) + ") REFERENCES " + mysql_escape(table) + "(`pk`)";
         return res;
     }
 

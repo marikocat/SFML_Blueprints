@@ -5,6 +5,8 @@
 #include <ORM/backends/op.hpp>
 #include <ORM/core/macros.hpp>
 
+#include <sstream>
+
 //#include <my_global.h>
 
 #include <mutex>
@@ -152,12 +154,27 @@ namespace orm
         sql+= creator().autoField(ORM_COLUMN_PRIMARY_KEY);
 
         const DB& db=*this;
+        std::vector<std::string> constraints;
         for(unsigned int i=0;i<size;++i)
         {
-            sql+=",\n"+attrs[i]->_create(db);
+            std::istringstream iss(attrs[i]->_create(db));
+            std::string res;
+            std::getline(iss, res, ',');
+            sql += ",\n" + res;
+            if (std::getline(iss, res, ','))
+            {
+                constraints.push_back(res);
+            }
+
+            //sql+=",\n"+attrs[i]->_create(db);
+        }
+        for (int i = 0; i < constraints.size(); ++i)
+        {
+            sql += ",\n" + constraints[i];
         }
         sql+="\n)";
-
+        constraints.clear();
+        std::cout << "create table query: " << sql << std::endl;
         std::shared_ptr<Query> q = this->query(sql);
         q->_execute();
         q->_next();

@@ -14,7 +14,6 @@ namespace orm
         for(bool(*f)() : _create)
         {
             ++i;
-            std::cout << "called " << i << " times\n";
             res += f();
         }
         //TODO commit

@@ -31,24 +31,86 @@ namespace orm
             return std::dynamic_pointer_cast<SqlObjectBase>(T::create());
         });
 
-        Tables::_create.push_back(
+        if (SqlObject<T>::_table == "Game")
+        {
+            Tables::_create.emplace(Tables::_create.begin(),
                                  []()->bool{
                                     return SqlObject<T>::createTable();
                                  }
                                 );
 
-        Tables::_drop.push_back(
-                               []()->bool{
-                                return SqlObject<T>::dropTable();
-                                }
-                            );
-
-        Tables::_clear.push_back(
+            Tables::_drop.emplace(Tables::_drop.begin(),
                                    []()->bool{
-                                    return SqlObject<T>::clearTable();
+                                    return SqlObject<T>::dropTable();
                                     }
                                 );
 
+            Tables::_clear.emplace(Tables::_clear.begin(),
+                                       []()->bool{
+                                        return SqlObject<T>::clearTable();
+                                        }
+                                    );
+        }
+        else if (SqlObject<T>::_table == "Team")
+        {
+            Tables::_create.emplace(Tables::_create.begin() + 1,
+                                 []()->bool{
+                                    return SqlObject<T>::createTable();
+                                 }
+                                );
+
+            Tables::_drop.emplace(Tables::_drop.begin() + 1,
+                                   []()->bool{
+                                    return SqlObject<T>::dropTable();
+                                    }
+                                );
+
+            Tables::_clear.emplace(Tables::_clear.begin() + 1,
+                                       []()->bool{
+                                        return SqlObject<T>::clearTable();
+                                        }
+                                    );
+        }
+        else if (SqlObject<T>::_table != "EntityData")
+        {
+            Tables::_create.emplace(Tables::_create.begin() + (Tables::_create.size() - 1),
+                                 []()->bool{
+                                    return SqlObject<T>::createTable();
+                                 }
+                                );
+
+            Tables::_drop.emplace(Tables::_drop.begin() + (Tables::_drop.size() - 1),
+                                   []()->bool{
+                                    return SqlObject<T>::dropTable();
+                                    }
+                                );
+
+            Tables::_clear.emplace(Tables::_clear.begin() + (Tables::_clear.size() - 1),
+                                       []()->bool{
+                                        return SqlObject<T>::clearTable();
+                                        }
+                                    );
+        }
+        else
+        {
+            Tables::_create.push_back(
+                                     []()->bool{
+                                        return SqlObject<T>::createTable();
+                                     }
+                                    );
+
+            Tables::_drop.push_back(
+                                   []()->bool{
+                                    return SqlObject<T>::dropTable();
+                                    }
+                                );
+
+            Tables::_clear.push_back(
+                                       []()->bool{
+                                        return SqlObject<T>::clearTable();
+                                        }
+                                    );
+        }
         #if ORM_DEBUG & ORM_DEBUG_REGISTER
         std::cerr<<ORM_COLOUR_MAGENTA<<"[Register] END Table "<<SqlObject<T>::_table<<ORM_COLOUR_NONE<<std::endl;
         #endif

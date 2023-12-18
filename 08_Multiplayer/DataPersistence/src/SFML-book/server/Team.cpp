@@ -1,12 +1,12 @@
 #include <SFML-book/server/Team.h>
 
-ORM_M2M_REGISTER(Team, _enemies, Team, "Team_enemies", "team_id", "enemy_id")
 ORM_REGISTER(Team, "Team",\
 				_isAlive, "isAlive",\
 				_id, "id",\
 				_gold, "gold",\
 				_colorChar, "color",\
 				_game, "game_id")
+ORM_M2M_REGISTER(Team, _enemies, Team, "Team_enemies", "team_id", "enemy_id")
 
 Team::Team() : 
 	_isAlive(Team::$_isAlive),

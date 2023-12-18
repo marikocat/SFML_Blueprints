@@ -4,8 +4,6 @@
 
 std::shared_ptr<orm::DB> orm::DB::Default = std::make_shared<orm::MySqlDB>("root", "123456", "isogame_db");
 
-
-
 #include <SFML-book/server/Server.h>
 
 #include <iostream>
