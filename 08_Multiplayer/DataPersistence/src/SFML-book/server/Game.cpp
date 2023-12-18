@@ -242,6 +242,7 @@ int Game::getDistance(const sf::Vector2i& origin, const sf::Vector2i& dest) cons
 
 void Game::load(bool init)
 {
+	std::cout << "Game::load(bool init)\n";
 	_map = sfutils::VMap::createMapFromFile(_mapFileName);
 	if (_map == nullptr)
 		throw std::runtime_error("Impossible to load file map");

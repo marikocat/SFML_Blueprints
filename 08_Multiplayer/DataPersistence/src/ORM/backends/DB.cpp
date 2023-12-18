@@ -66,11 +66,11 @@ namespace orm
         const unsigned int size = attrs.size();
         if(size > 0)
         {
-            std::string str_q = "INSERT INTO "+_escapeColumn(table)+"("+attrs[0]->_column;
+            std::string str_q = "INSERT INTO "+_escapeColumn(table)+"("+ _escapeColumn(attrs[0]->_column);
 
             for(unsigned int i=1;i<size;++i)
             {
-                str_q+=","+attrs[i]->_column;
+                str_q+=","+ _escapeColumn(attrs[i]->_column);
             }
             str_q+=") ";
 
@@ -81,9 +81,9 @@ namespace orm
             }
             str_q+=");";
 
-            #if ORM_DEBUG & ORM_DEBUG_SQL
+            //#if ORM_DEBUG & ORM_DEBUG_SQL
             std::cerr<<ORM_COLOUR_BLUE<<"[Sql:insert] "<<str_q<<"\nVALUES = (";
-            #endif
+            //#endif
 
             std::shared_ptr<Query> q = prepareQuery(str_q);
             const auto deltaIndex = _getInitialSetcolumnNumber();
@@ -93,17 +93,17 @@ namespace orm
                 //prepare the field
                 attrs[i]->_beforeSave();
 
-                #if ORM_DEBUG & ORM_DEBUG_SQL
+                //#if ORM_DEBUG & ORM_DEBUG_SQL
                 std::cerr<<","<<*attrs[i];
-                #endif
+                //#endif
                 attrs[i]->_setToQuery(*q,i+deltaIndex);
                 attrs[i]->_modified = false;
                 //post save
                 attrs[i]->_afterSave();
             }
-            #if ORM_DEBUG & ORM_DEBUG_SQL
+            //#if ORM_DEBUG & ORM_DEBUG_SQL
             std::cerr<<")"<<std::endl;
-            #endif
+            //#endif
 
             q->_execute();
             q->_next();

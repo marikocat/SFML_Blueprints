@@ -1,5 +1,3 @@
-#include <ORM/core/Tables.hpp>
-
 #include <ORM/backends/MySql.hpp>
 
 std::shared_ptr<orm::DB> orm::DB::Default = std::make_shared<orm::MySqlDB>("root", "123456", "isogame_db");
