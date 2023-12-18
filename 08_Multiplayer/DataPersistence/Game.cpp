@@ -14,11 +14,11 @@
 #include <fstream>
 #include <stdexcept>
 
-ORM_REGISTER(Game, "Game", \
-	_id, "id", \
-	_mapFileName, "mapFileName")
-
 int Game::_numberOfCreations = 0;
+
+ORM_REGISTER(Game, "Game",\
+	_id, "id",\
+	_mapFileName, "mapFileName")
 
 Game::Game() :
 	_isRunning(false),

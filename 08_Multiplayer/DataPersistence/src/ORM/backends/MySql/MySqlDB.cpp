@@ -45,6 +45,7 @@ namespace orm
             std::lock_guard<std::mutex> guard(_counterMutex);
             if (_counter++ == 0)
             {
+                // Call this function to initialize the MySQL client library before you call any other MySQL function.
                 if (mysql_library_init(0, nullptr, nullptr))
                 {
                     std::cerr << "Unable to initialize MySQL library" << std::endl;

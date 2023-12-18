@@ -2,18 +2,18 @@
 #include <SFML-book/server/Entity.h>
 
 ORM_REGISTER_AND_CONSTRUCT(EntityData, "EntityData",\
-	_game, "game_id", \
-	_coordX, "coordX", \
-	_coordY, "coordY", \
-	_type, "type", \
-    _AIMain, "AIMain", \
-    _AIWarrior, "AIWarrior", \
-    _AIDefender, "AIDefender", \
-    _AISpawner, "AISpawner", \
-    _AIWalker, "AIWalker", \
-    _AIFlyer, "AIFlyer", \
-    _team, "team", \
-    _skin, "skin", \
+	_game, "game_id",\
+	_coordX, "coordX",\
+	_coordY, "coordY",\
+	_type, "type",\
+    _AIMain, "AIMain",\
+    _AIWarrior, "AIWarrior",\
+    _AIDefender, "AIDefender",\
+    _AISpawner, "AISpawner",\
+    _AIWalker, "AIWalker",\
+    _AIFlyer, "AIFlyer",\
+    _team, "team",\
+    _skin, "skin",\
     _hp, "hp")
 
 EntityData::pointer EntityData::createFromEntity(Entity& entity, Game::pointer game)

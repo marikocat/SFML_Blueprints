@@ -18,6 +18,7 @@ public:
 	std::uint32_t convertToEntity(Game& game);
 
 	orm::FK<Game> _game;
+
 	orm::FloatField _coordX;
 	orm::FloatField _coordY;
 	orm::IntegerField _type;
@@ -36,8 +37,5 @@ public:
 	virtual void _beforeSave() override;
 	virtual void _beforeUpdate() override;
 
-	ORM_MAKE_STATIC_COLUMN(_game, _coordX, _coordY, _type, \
-		_AIMain, _AIWarrior, _AIDefender, \
-		_AISpawner, _AIWalker, _AIFlyer, \
-		_team, _skin, _hp)
+	ORM_MAKE_STATIC_COLUMN(_game, _coordX, _coordY, _type, _AIMain, _AIWarrior, _AIDefender, _AISpawner, _AIWalker, _AIFlyer, _team, _skin, _hp)
 };

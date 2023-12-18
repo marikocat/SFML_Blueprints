@@ -1,5 +1,6 @@
-#ifndef ORM_TABLES_HPP
-#define ORM_TABLES_HPP
+//#ifndef ORM_TABLES_HPP
+//#define ORM_TABLES_HPP
+#pragma once
 
 #include <vector>
 #include <string>
@@ -44,9 +45,13 @@ namespace orm
             template<typename T> friend class Register;
             template<typename T,typename U> friend class M2MRegister;
 
-            static std::vector<bool(*)()> _create; ///< function ptr on SqlObject<T>::create
-            static std::vector<bool(*)()> _drop; ///< function ptr on SqlObject<T>::del
-            static std::vector<bool(*)()> _clear; ///<function ptr on SqlObject<T>::clear
+            //static std::vector<bool(*)()> _create; ///< function ptr on SqlObject<T>::create
+            //static std::vector<bool(*)()> _drop; ///< function ptr on SqlObject<T>::del
+            //static std::vector<bool(*)()> _clear; ///<function ptr on SqlObject<T>::clear
+
+            inline static std::vector<bool(*)()> _create{}; ///< function ptr on SqlObject<T>::create
+            inline static std::vector<bool(*)()> _drop{}; ///< function ptr on SqlObject<T>::del
+            inline static std::vector<bool(*)()> _clear{}; ///<function ptr on SqlObject<T>::clear
 
             Tables() = delete;
             Tables(const Tables&) = delete;
@@ -54,4 +59,4 @@ namespace orm
     };
 }
 
-#endif
+//#endif
