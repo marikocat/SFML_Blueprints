@@ -126,6 +126,7 @@ bool Game::addClient(book::Client* client)
 
 void Game::run()
 {
+	std::cout << "\nGame::run()\n\n";
 	_isRunning = true;
 	_gameThread.launch();
 	_sendThread.launch();
@@ -242,7 +243,7 @@ int Game::getDistance(const sf::Vector2i& origin, const sf::Vector2i& dest) cons
 
 void Game::load(bool init)
 {
-	std::cout << "Game::load(bool init)\n";
+	std::cout << "Game::load(" << (init ? "true": "false") << ") started\n";
 	_map = sfutils::VMap::createMapFromFile(_mapFileName);
 	if (_map == nullptr)
 		throw std::runtime_error("Impossible to load file map");
@@ -310,6 +311,8 @@ void Game::load(bool init)
 	systems.add<book::SysAIWalker>(*this);
 	systems.add<book::SysAIFlyer>(*this);
 	systems.add<book::SysHp>(*this);
+
+	std::cout << "Game::load(" << (init ? "true" : "false") << ") ended\n";
 }
 
 void Game::_send()
@@ -338,6 +341,7 @@ void Game::_send()
 
 void Game::_run()
 {
+	std::cout << "Game::_run()\n";
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate;
 
@@ -592,7 +596,7 @@ void Game::addCreate(book::packet::CreateEntity& packet, unsigned int id)
 
 void Game::_afterLoad()
 {
-	std::cout << "Game::_afterLoad\n";
+	std::cout << "Game::_afterLoad() from DB started\n";
 	if (_id > _numberOfCreations)
 		_numberOfCreations = _id;
 
@@ -616,12 +620,17 @@ void Game::_afterLoad()
 	}
 
 	_id = _id; //to force after_[save/load] callback to be called modifying the object.
+	std::cout << "Game::_afterLoad() from DB ended\n";
 }
 
 void Game::_afterSave()
 {
+	std::cout << "Game::_afterSave() to DB started\n";
 	for (Team::pointer team : _teams)
+	{
+		std::cout << ORM_COLOUR_GREEN << "Game::_afterSave() save team\n" << ORM_COLOUR_NONE;
 		team->save();
+	}
 
 	auto self = this->asPointer();
 
@@ -631,8 +640,10 @@ void Game::_afterSave()
 		std::cout << "Save entity " << id << "/" << entities.size() << std::endl;
 		Entity& e = entities.get(id);
 		EntityData::pointer tmp = EntityData::createFromEntity(e, self);
+		std::cout << ORM_COLOUR_GREEN << "Game::_afterSave() save entity data\n" << ORM_COLOUR_NONE;
 		tmp->save(true);
 	}
+	std::cout << "Game::_afterSave() to DB ended\n";
 }
 
 void Game::_afterUpdate()

@@ -62,9 +62,9 @@ namespace book
 
 	void Server::runGame()
 	{
-		std::cout << "Start Game service" << std::endl;
-
 		loadFromDb();
+
+		std::cout << "Start Game service" << std::endl;
 
 		while (!stop)
 		{
@@ -94,6 +94,7 @@ namespace book
 					} break;
 					case FuncIds::IdCreateGame:
 					{
+						std::cout << "Server::runGame(): IdCreateGame started\n";
 						sf::Packet response;
 						packet::SetListGame list;
 						sf::Lock guard(_gameMutex);
@@ -111,6 +112,7 @@ namespace book
 						// send new game to all clients
 						for (auto it2 = _clients.begin(); it2 != _clients.end(); ++it2)
 							(*it2)->send(response);
+						std::cout << "Server::runGame(): IdCreateGame ended\n";
 					} break;
 					case FuncIds::IdJoinGame:
 					{
@@ -216,9 +218,10 @@ namespace book
 
 	void Server::loadFromDb()
 	{
-		std::cout << "Loading Games" << std::endl;
+		std::cout << ORM_COLOUR_YELLOW <<"Loading Games from DB Started" << ORM_COLOUR_NONE << std::endl;
+
 		Game::pointer_array games = Game::all();
-		std::cout << "loadfromdb\n";
+
 		for (Game::pointer g : games)
 		{
 			g->onLogOut = onLogOut;
@@ -226,6 +229,6 @@ namespace book
 			_games.emplace_back(std::move(g));
 		}
 
-		std::cout << "Done" << std::endl;
+		std::cout << ORM_COLOUR_YELLOW << "Loading Games from DB Done" << ORM_COLOUR_NONE << std::endl;
 	}
 }

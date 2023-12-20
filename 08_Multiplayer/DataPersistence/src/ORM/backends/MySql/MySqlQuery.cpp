@@ -461,7 +461,10 @@ namespace orm
                 }
             }
 
-            if(mysql_stmt_prepare(_preparedStatement,_query.c_str(),_query.size() + 1))
+            std::cout << "MySqlQuery::_executeQuery(): ";
+            std::cout << _query << "\n";
+
+            if(mysql_stmt_prepare(_preparedStatement,_query.c_str(),_query.size()))
             {
                 std::cerr<<ORM_COLOUR_RED<<"MySqlQuery::executeQuery() mysql_stmt_prepare() : Could not execute the query. Error message:"<<mysql_stmt_error(_preparedStatement)<<ORM_COLOUR_NONE<<std::endl;
                 return;

@@ -235,7 +235,8 @@ namespace orm
         {
             q_str+= _db._limit(_limitSkip,_limitCount);
         }
-        std::cout << q_str << "\n";
+        std::cout << ORM_COLOUR_YELLOW << "QuerySet<T>::_makeQuery(): " << ORM_COLOUR_NONE;
+        std::cout << q_str <<"\n";
         std::shared_ptr<Query> q = _db.prepareQuery(q_str);
         if(filters_size > 0)
         {

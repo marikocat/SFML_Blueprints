@@ -69,7 +69,9 @@ namespace book
 			if (AI->_elapsed < AI->_delta)
 				continue;
 
+			std::cout << ORM_COLOUR_GREEN;
 			Team::pointer_array teamEnemies = team->_team->getEnemies();
+			std::cout << ORM_COLOUR_NONE;
 
 			// if no enemies
 			if (teamEnemies.size() <= 0)
@@ -188,7 +190,9 @@ namespace book
 			if (AI->_elapsed < AI->_delta)
 				continue;
 
+			std::cout << ORM_COLOUR_BLUE2;
 			Team::pointer_array teamEnemies = team->_team->getEnemies();
+			std::cout << ORM_COLOUR_NONE;
 
 			//if no enemies
 			if (teamEnemies.size() <= 0)

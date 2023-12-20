@@ -113,12 +113,14 @@ bool Team::isGameOver() const
 
 void Team::_afterLoad()
 {
+	std::cout << "Team::_afterLoad() started\n";
 	int res = _colorChar.getValue();
 	sf::Color c{ sf::Uint32(res) };
 	_color.r = c.r;
 	_color.g = c.g;
 	_color.b = c.b;
 	_color.a = c.a;
+	std::cout << "Team::_afterLoad() finished\n";
 }
 
 void Team::_beforeSave()

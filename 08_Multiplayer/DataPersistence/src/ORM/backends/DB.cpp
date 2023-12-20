@@ -109,9 +109,9 @@ namespace orm
             q->_next();
 
             pk = _getLastInsertPk();
-            #if ORM_DEBUG & ORM_DEBUG_SQL
+            //#if ORM_DEBUG & ORM_DEBUG_SQL
             std::cerr<<ORM_COLOUR_YELLOW<<"new PK: "<<pk<<" in table "<<table<<ORM_COLOUR_NONE<<std::endl;
-            #endif
+            //#endif
 
             return true;
 

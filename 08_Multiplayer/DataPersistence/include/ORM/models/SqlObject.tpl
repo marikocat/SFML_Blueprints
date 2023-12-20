@@ -84,7 +84,6 @@ namespace orm
     template<typename T>
     bool SqlObject<T>::save(bool recursive,DB& db)
     {
-        std::cout << "in SqlObject::save\n";
         bool res = true;
         if(recursive)//save all FK
         {
@@ -105,7 +104,6 @@ namespace orm
 
         if(pk <= 0)
         {
-            std::cout << "call to before save\n";
             _beforeSave();
             res = db._save(_table,pk,_attributsVector);
             if(res)
@@ -123,7 +121,6 @@ namespace orm
                 _afterUpdate();
         }
         return res;
-        std::cout << "in SqlObject::save end\n";
     }
 
     template<typename T>
@@ -156,7 +153,7 @@ namespace orm
     template<typename T>
     bool SqlObject<T>::createTable(DB& db)
     {
-    std::cout << "createTable() function called\n";
+        std::cout << "SqlObject<T>::createTable()\n";
         #if ORM_DEBUG & ORM_DEBUG_CREATE_TABLE
         std::cerr<<ORM_COLOUR_MAGENTA<<"[CREATE] create table "<<_table<<ORM_COLOUR_NONE<<std::endl;
         #endif

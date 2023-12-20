@@ -32,6 +32,7 @@ namespace orm
     {
         if(this->_adds)
         {
+        std::cout << "\nQUERY FROM DATABASE\n\n";
             this->clearCache();
             this->queryOwner(db).get(this->_cache, max_depth);
         }
